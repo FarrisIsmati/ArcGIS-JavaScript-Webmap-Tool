@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+
+  <html>
+
+    <head>
+
+        <meta charset="utf-8">
+
+        <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+        <meta content="Farris Ismati" name="author">
+
+        <meta content="Additional code sampled from Chris Barr (ESRI CSV Drag and Drop CSV Files example)">
+
+        <meta content="width=device-width, initial-scale=1, user-scalable=no" name=
+
+        "viewport">
+
+        <meta content="initial-scale=1, maximum-scale=1, user-scalable=no" name=
+
+        "viewport">
+
+        
+
+        <?php header("Access-Control-Allow-Origin: *"); ?>
+
+        
+
+        <link href="CSVWebmapCSS.css" rel="stylesheet" type="text/css">
+
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+
+        <link rel="stylesheet" href="http://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
+
+        <link href="http://js.arcgis.com/3.13/esri/css/esri.css" rel="stylesheet">
+
+        
+
+        <script src="http://js.arcgis.com/3.13/"></script>
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+
+        <script src="CSVWebmapJS.js"></script>
+
+        <title>Webmap tool</title>
+
+    </head>
+
+    
+
+    <body class="claro" id="body">
+    
+
+    
+
+        <div class="dissapear" id="basemapGalleryHolder">
+
+        
+
+            <div id="basemapGallery"></div>
+
+            
+
+        </div>
+
+    
+
+        <div id='mainMap'>
+
+        	<div id="mapCanvas" class="noTextHighlighting"></div>  
+
+        </div>
+
+        <!---Right Sidebar Widget-->
+
+        <div class="rightSidebar noTextHighlighting" id="sidebar">
+
+        
+
+            <div id='sidebarSVG' class='noOpacity'>
+
+            
+
+                  <svg id='sidebarMoveSVG'>
+
+                  
+
+                  <defs>
+
+                  
+
+                    <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+
+                    
+
+                      <stop offset="0%" style="stop-color:rgb(116,116,116);stop-opacity:1" />
+
+                      
+
+                      <stop offset="100%" style="stop-color:rgb(232,232,232);stop-opacity:1" />
+
+                      
+
+                    </linearGradient>
+
+                    
+
+                  </defs>
+
+                  
+
+                  <rect width=100% height="10" fill="url(#grad1)" />
+
+                  
+
+                </svg>
+
+                
+
+            </div>
+
+
+
+            <p id="LoadedFileName">File</p>
+
+
+			
+            <h1 id="stylingOptionsHeader">Style</h1>
+
+                         
+
+            <div id="stylingDiv" class="slideup">
+
+            
+
+               <h2 class="divHeaderText" id='hideZoom' >Style Options</h2>
+
+            
+
+               <h4 class="ClickableText" id="ctGeneral">General</h4>
+
+        
+
+               <h4 class="ClickableText" id="ctAttributesColor">Categories</h4>
+
+                
+
+               <div  class="slideup" id="StyleOptionAttr"></div>
+
+                      
+
+               <div id="StyleOptionGen">
+
+                              
+
+                  <div class="CATslideup" id="CATselection">
+
+                  
+
+                      <h3 class="rightSidebarText">Categories</h3>
+
+                      
+
+                      <div id="StyleOptionDiv">
+
+                      
+
+                              <select class="selectionsStyle" id="fieldOptionsStyle"></select>
+
+                      </div>
+
+                      
+
+                   </div>
+
+                   
+
+                  <div id='dropDownColorSet'>
+
+                  
+
+                      <h3 class="rightSidebarText">Colors</h3>
+
+                      
+
+                       <select class="selectionsStyle" id="dropDownColorSetColors" name="dropdown" size="1">
+
+                       
+
+                              <option value="set1">
+
+                                  Set 1
+
+                              </option>
+
+                              
+
+                              <option value="set2">
+
+                                  Set 2
+
+                              </option>
+                              
+                              
+                              <option value="set3">
+
+                                  Set 3
+
+                              </option>
+
+                              
+
+                       </select>
+
+                   
+
+                   </div>
+
+                   
+
+                  <div id="dropdownColors"> 
+
+                     
+
+                      <h3 class="rightSidebarText">Colors</h3>
+
+                      
+
+                          <select class="selectionsStyle" name="dropdown" size="1">
+
+                          
+
+                              <option value="Orange">
+
+                                  Orange
+
+                              </option>
+
+            
+
+                              <option value="Black">
+
+                                  Black
+
+                              </option>
+
+            
+
+                              <option value="Red">
+
+                                  Red
+
+                              </option>
+
+            
+
+                              <option value="Gray">
+
+                                  Gray
+
+                              </option>
+
+            
+
+                              <option value="Yellow">
+
+                                  Yellow
+
+                              </option>
+
+            
+
+                              <option value="Green">
+
+                                  Green
+
+                              </option>
+
+            
+
+                              <option value="Purple">
+
+                                  Purple
+
+                              </option>
+
+            
+
+                              <option value="White">
+
+                                  White
+
+                              </option>
+
+                              
+
+                          </select>
+
+                          
+
+                   </div>
+
+                                  
+
+                   <h3 class="rightSidebarText">Shapes</h3>
+
+                      
+
+                   <div id="selectShape">
+
+                      
+
+                          <select class="selectionsStyle" id="dropdownShapes" name="dropdown2" size="1">
+
+                          
+
+                              <option value="Circle">
+
+                                  Circle
+
+                              </option>
+
+      
+
+                              <option value="Square">
+
+                                  Square
+
+                              </option>
+
+      
+
+                              <option value="Diamond">
+
+                                  Diamond
+
+                              </option>
+
+                              
+
+                          </select>
+
+                          
+
+                      </div>
+
+                      
+
+                      <h3 class="rightSidebarText">Size</h3>
+
+                      
+
+                      <input class="textBox" id="inputSize" placeholder="Feature Layer Size" type="text">
+
+                      
+
+                      <button class="buttonStyle" id='sendStyle' type='button'>Change Style</button>
+
+                      
+
+                      <button class="buttonStyle" id="StyleOptionButtonCAT" type='button'>Change Style</button>
+
+                      
+
+              </div>
+
+              
+
+            </div>
+
+            <!-- End of Style Options General --->
+
+      
+
+            <svg height="21" width="170">
+
+            
+
+                <rect x="10" y="10" width="150" height="3" stroke="gray" fill="gray"/>
+
+                
+
+            </svg>
+
+    
+
+            <h1 id="queryOptionsHeader">Query</h1>
+
+            
+
+            <!-- Query Options Div --->
+
+            
+
+            <div id="queryDiv" class="slideup">
+
+            
+
+                <h2 class="divHeaderText" id="queryTitle">Query Options</h2>
+
+    
+
+                <div id="fieldsAndattributes">
+
+                
+
+                    <h4 class="ClickableText" id="ctFields">Fields</h4>
+
+    
+
+    
+
+                    <h4 class="ClickableText" id="ctAttributes">Attributes</h4>
+
+    
+
+    
+
+                    <p id="fieldDisplay" class="fieldDisplayClass">Current Field</p>
+
+    
+
+    
+
+                    <div id="fieldsListDiv">
+
+                    
+
+                        <select class="selectionsStyle" id="fieldsList"></select>
+
+                        
+
+                    </div>
+
+    
+
+    
+
+                    <div id="queryOptionsDiv">
+
+                    
+
+                        <select class="selectionsStyle" id="queryOptions"></select>
+
+                        
+
+                    </div>
+
+                    
+
+                </div>
+
+    
+
+                <svg height="15" width="160">
+
+                
+
+                    <rect x="15" y="10" width="110" height="1" stroke="gray" fill="gray"/>
+
+                    
+
+                </svg>
+
+                            
+
+                <p class="fieldDisplayClass" id="numberOfObjects">Number of Records</p>
+
+    
+
+                <button class="buttonStyle" id="queryTextSubmit" type='button'>Submit Query</button> 
+
+                
+
+                <button class="buttonStyle" id="queryReset" type='button'>Reset</button>
+
+    
+
+            </div>
+
+            
+
+            <!-- End of Query Options Div --->  
+
+                
+
+            <svg height="21" width="170">
+
+            
+
+                <rect x="10" y="10" width="150" height="3" stroke="gray" fill="gray"/>
+
+            
+
+            </svg>
+
+                
+
+                
+
+            <h1 id="legendTitle">Legend</h1> 
+
+            
+
+            <div id='legendButtonDiv' class='slideup'>
+
+         
+
+                <div id='reuseableLegendDiv'></div>
+
+            
+
+            </div>
+
+                
+
+            <div id="legendDiv"></div> 
+
+                        
+
+            <svg height="21" width="170">
+
+            
+
+                <rect x="10" y="10" width="150" height="3" stroke="gray" fill="gray"/>
+
+            
+
+            </svg>
+
+                        
+
+            <h1 id="basemapButton" class='.dissapear'>Basemaps</h1>
+
+            
+
+            <div id="printButton"></div>
+
+
+
+            <div id='sidebarBottom' class='noOpacity'>
+
+                <p id='sidebarCollapse'>hide</p>
+
+            </div>
+
+                                       
+
+        </div>
+
+        <!-- END OF RIGHT SIDEBAR WIDGET -->
+
+
+        <div id='normalLegend' class='dissapear noTextHighlighting'>
+
+        
+
+            <p class="fieldDisplayClass" id="currentColorCATdisplay">Field</p>
+
+            
+
+        </div>
+
+        
+
+    </body>
+
+
+
+  </html>
