@@ -26,6 +26,6 @@ Appropiate Date/Time formats:
 http://www.w3schools.com/js/js_date_formats.asp
 
 ## Note:
-This is the **first** applicaion I created a few weeks after starting to learn HTLM/CSS/JavaScript. The code does not utilize proper separation of concerns making it very difficult to build on from.
+This is the **first** applicaion I created a few weeks after starting to learn HTLM/CSS/JavaScript. The code does not utilize proper separation of concerns making it very difficult to build on from. Honestly it's actually pretty terrible and difficult to read.
 
 Created: 08/07/2015
